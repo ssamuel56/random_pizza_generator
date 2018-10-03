@@ -1,4 +1,4 @@
-puts "Do you want extra toppings?"
+puts "Do you like extra toppings on your pizza?"
 print ">>"
 user_choice = $stdin.gets.chomp
 
@@ -45,6 +45,11 @@ else
   load 'pizza_picker.rb'
 end
 
+puts "How many pizzas would you like to make today?"
+print ">>"
+x = $stdin.gets.chomp.to_i
+
+
 def price(meats, cheeses, vegg, sauces, psize)
   if meats == "Pepperoni" || meats == "Ham" || meats == "Chicken" || meats == "Beef"
     meat_price = 0
@@ -74,17 +79,12 @@ def price(meats, cheeses, vegg, sauces, psize)
     size_price = 10
   end
 
-  numbre = meat_price.to_i + cheese_price.to_i + veggie_price.to_i + sauce_price.to_i + size_price.to_i
+  numbre = meat_price + cheese_price + veggie_price + sauce_price + size_price
   return numbre
 end
 
-puts "How many pizzas would you like to make today?"
-print ">>"
-x = $stdin.gets.chomp.to_i
-
-total_pricing = 0
-
 def time(x, total_pricing)
+  y = 1
   x.times do
     meats = meat()
     cheeses = cheese()
@@ -93,6 +93,7 @@ def time(x, total_pricing)
     sauces = sauce_special()
     psize = slice_size()
     puts "\n"
+    puts "This is pizza number #{y}"
     puts "#{psize} Pizza"
     puts meats
     puts cheeses
@@ -103,9 +104,12 @@ def time(x, total_pricing)
     puts price(meats, cheeses, vegg, sauces, psize)
     puts "\n"
     total_pricing += price(meats, cheeses, vegg, sauces, psize)
+    y += 1
   end
       print "Your total is $#{total_pricing}"
 end
+
+total_pricing = 0
 
 time(x, total_pricing)
 
